@@ -10,7 +10,7 @@ rosrun rviz rviz
 # Create map using
 rosrun gmapping slam_gmapping scan:=scan 
 
-### Make sure that reference frame is odon on rviz
+### Make sure that reference frame is odom on rviz
 
 # Save Map using
 rosrun map_server nap_saver 'name'
