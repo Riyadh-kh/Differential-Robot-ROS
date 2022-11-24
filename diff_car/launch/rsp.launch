@@ -1,0 +1,24 @@
+<launch>
+   <!-- Load the urdf into the parameter server. -->
+   <arg name="model" default="$(find diff_car)/description/robot.urdf.xacro"/>
+   <arg name="debug" default="false" />
+   <arg name="gui" default="true" />
+   <arg name="pause" default="false" />
+   <arg name="world" default="$(find diff_car)/world/empty.world" />
+
+   <param name="robot_description" command="$(find xacro)/xacro --inorder $(arg model)" />
+   <param name="/use_sim_time" value="true" />
+    
+   <node pkg="robot_state_publisher" type="robot_state_publisher" name="rob_st_pub" > </node>
+
+   <include file="$(find gazebo_ros)/launch/empty_world.launch">
+            <arg name="world_name" value="$(arg world)" />
+            <arg name="debug" value="$(arg debug)" />
+            <arg name="gui" value="$(arg gui)" />
+            <arg name="paused" value="$(arg pause)" />
+            <arg name="use_sim_time" value="true" />
+   </include>
+
+     <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-param robot_description -urdf -model diff_bot" />
+
+</launch>
